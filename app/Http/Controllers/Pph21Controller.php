@@ -99,6 +99,7 @@ class Pph21Controller extends Controller
             'nik' => 'numeric',
             'jumlah_bayar' => 'numeric',
             'bpf' => 'string',
+            'bpf' => 'string|max:255',
             'biaya_bulan' => 'numeric',
 
         ]);
@@ -108,7 +109,9 @@ class Pph21Controller extends Controller
                 'message' => $validated->messages(),
             ]);
         } else {
-            $pph21 = Pph21::where('id', $id)->update([
+            $pph21 = Pph21::where('id', $id)->first();
+
+            $pph21->update([
                 'id_pajak' => $request->id_pajak,
                 'nik' => $request->nik,
                 'jumlah_bayar' => $request->jumlah_bayar,

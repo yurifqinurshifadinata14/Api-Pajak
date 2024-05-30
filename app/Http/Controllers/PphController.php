@@ -109,7 +109,8 @@ class PphController extends Controller
             ]);
         } else {
 
-            Pph::where('id_pph', $id_pph)->update([
+            $pph = Pph::where('id_pph', $id_pph)->first();
+            $pph->update([
                 'id_pajak' => $request->id_pajak,
                 'id_pph' => $id_pph,
                 'ntpn' => $request->ntpn,

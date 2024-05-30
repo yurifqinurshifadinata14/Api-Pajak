@@ -90,7 +90,8 @@ class KaryawanController extends Controller
                 'message' => $validated->messages(),
             ]);
         } else {
-            $karyawan = Karyawan::where('id', $id)->update([
+            $karyawan = Karyawan::where('id', $id)->first();
+            $karyawan->update([
                 'nama' => $request->nama,
                 'nik' => $request->nik,
                 'npwp' => $request->npwp,

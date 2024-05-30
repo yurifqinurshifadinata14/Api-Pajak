@@ -108,7 +108,8 @@ class PphunifikasiController extends Controller
                 'message' => $validated->messages(),
             ]);
         } else {
-            $pphunifikasi = Pphunifikasi::where('id_pphuni', $id_pphuni)->update([
+            $pphunifikasi = Pphunifikasi::where('id_pphuni', $id_pphuni)->first();
+            $pphunifikasi->update([
                 'id_pajak' => $request->id_pajak,
                 'id_pphuni' => $id_pphuni,
                 'ntpn' => $request->ntpn,
