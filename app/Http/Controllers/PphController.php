@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Controllers\Controller;
 use App\Models\Pph;
 use Illuminate\Http\Request;
@@ -39,7 +40,7 @@ class PphController extends Controller
             'ntpn' => 'required|numeric',
             'biaya_bulan' => 'required|numeric',
             'jumlah_bayar' => 'required|numeric',
-     ]);
+        ]);
 
         if ($validated->fails()) {
             return response()->json([
@@ -61,11 +62,11 @@ class PphController extends Controller
             }
 
             Pph::create([
-            'id_pajak' => $request->id_pajak,
-            'id_pph' => $id_pph,
-            'ntpn' => $request->ntpn,
-            'biaya_bulan' => $request->biaya_bulan,
-            'jumlah_bayar' => $request->jumlah_bayar,
+                'id_pajak' => $request->id_pajak,
+                'id_pph' => $id_pph,
+                'ntpn' => $request->ntpn,
+                'biaya_bulan' => $request->biaya_bulan,
+                'jumlah_bayar' => $request->jumlah_bayar,
             ]);
 
             return response()->json([
@@ -100,7 +101,7 @@ class PphController extends Controller
             'ntpn' => 'numeric',
             'biaya_bulan' => 'numeric',
             'jumlah_bayar' => 'numeric',
-     ]);
+        ]);
 
         if ($validated->fails()) {
             return response()->json([
@@ -108,10 +109,12 @@ class PphController extends Controller
             ]);
         } else {
 
-            $pph=Pph::where('id_pph',$id_pph)->update([
-                'ntpn' => (int)$request->ntpn,
-                'biaya_bulan' => (int)$request->biaya_bulan,
-                'jumlah_bayar' => (int)$request->jumlah_bayar,
+            Pph::where('id_pph', $id_pph)->update([
+                'id_pajak' => $request->id_pajak,
+                'id_pph' => $id_pph,
+                'ntpn' => $request->ntpn,
+                'biaya_bulan' => $request->biaya_bulan,
+                'jumlah_bayar' => $request->jumlah_bayar,
             ]);
 
             return response()->json([

@@ -10,7 +10,7 @@ class Pajak extends Model
     use HasFactory;
     protected $guarded = [];
     protected $fillable = [
-        'id_pajak', 'nama_wp', 'npwp', 'no_hp', 'no_efin', 'gmail', 'password', 'nik', 'alamat', 'merk_dagang', 'jenis', 'status'
+        'id_pajak', 'id_user', 'nama_wp', 'npwp', 'no_hp', 'no_efin', 'gmail', 'password', 'nik', 'alamat', 'merk_dagang', 'jenis', 'status'
     ];
 
     public function jenis()

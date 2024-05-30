@@ -36,6 +36,7 @@ class PajakController extends Controller
      */
     public function store(Request $request)
     {
+
         $max = DB::table('pajaks')->select(DB::raw('MAX(RIGHT(id_pajak,3)) as autoid'));
         $kd = "";
 
@@ -69,6 +70,7 @@ class PajakController extends Controller
 
         $pajak = Pajak::create([
             "id_pajak" => $id_pajak,
+            "id_user" => auth()->user()->id,
             "nama_wp" => $request->nama_wp,
             "npwp" => $request->npwp,
             "no_hp" => $request->no_hp,
@@ -153,6 +155,8 @@ class PajakController extends Controller
 
         // Temukan data Pajak berdasarkan id_pajak
         $pajak = Pajak::where('id_pajak', $id_pajak)->first();
+        $status = Status::where('id_pajak', $id_pajak)->first();
+        $jenis = Jenis::where('id_pajak', $id_pajak)->first();
 
         // Perbarui data Pajak dengan data yang diterima dari request
         if (!$pajak) {
@@ -161,7 +165,37 @@ class PajakController extends Controller
             ], 404);
         }
 
-        $pajak->update($request->all());
+        $pajak->update([
+            "id_pajak" => $id_pajak,
+            "id_user" => auth()->user()->id,
+            "nama_wp" => $request->nama_wp,
+            "npwp" => $request->npwp,
+            "no_hp" => $request->no_hp,
+            "no_efin" => $request->no_efin,
+            "gmail" => $request->gmail,
+            "password" => $request->password,
+            "nik" => $request->nik,
+            "alamat" => $request->alamat,
+            "merk_dagang" => $request->merk_dagang,
+        ]);
+
+        $jenis->update([
+            "id_pajak" => $id_pajak,
+            "jenis" => $request->jenis,
+            "jabatan" => $request->jenis == "Badan" ? $request->jabatan : null,
+            "alamatBadan" => $request->jenis == "Badan" ? $request->alamatBadan : null,
+            "npwpBadan" => $request->jenis == "Badan" ? $request->npwpBadan : null,
+            "saham" => $request->jenis == "Badan" ? $request->saham : null,
+        ]);
+
+        $status->update([
+            "id_pajak" => $id_pajak,
+            "status" => $request->status,
+            "enofa_password" => $request->status == "PKP" ? $request->enofa_password : null,
+            "passphrese" => $request->status == "PKP" ? $request->passphrese : null,
+            "user_efaktur" => $request->status == "PKP" ? $request->user_efaktur : null,
+            "password_efaktur" => $request->status == "PKP" ? $request->password_efaktur : null,
+        ]);
 
         // Kembalikan respons JSON yang menyatakan data telah tersimpan
         return response()->json([

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Karyawan;
 use App\Models\Pph21;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -50,14 +51,22 @@ class Pph21Controller extends Controller
                 'message' => $validated->messages(),
             ]);
         } else {
-            PPh21::create([
+            $pph21 = Pph21::create([
                 'id_pajak' => $request->id_pajak,
                 'nik' => $request->nik,
                 'jumlah_bayar' => $request->jumlah_bayar,
                 'bpf' => $request->bpf,
                 'biaya_bulan' => $request->biaya_bulan,
-
             ]);
+
+            $karyawan = Karyawan::where('id', $request->id_karyawan)->first();
+            Karyawan::updateOrCreate([
+                'id_pph21' => $pph21->id,
+                'nama' => $karyawan->nama,
+                'nik' => $karyawan->nik,
+                'npwp' => $karyawan->npwp,
+            ]);
+            $pph21 = Pph21::where('nik', $karyawan->nik)->update(['nik' => $request->nik]);
 
             return response()->json([
                 'message' => "Data telah tersimpan",
@@ -100,11 +109,21 @@ class Pph21Controller extends Controller
             ]);
         } else {
             $pph21 = Pph21::where('id', $id)->update([
-                'nik' => (int) $request->nik,
-                'jumlah_bayar' => (int) $request->jumlah_bayar,
-                'bpf' => (int) $request->bpf,
-                'biaya_bulan' => (int) $request->biaya_bulan,
+                'id_pajak' => $request->id_pajak,
+                'nik' => $request->nik,
+                'jumlah_bayar' => $request->jumlah_bayar,
+                'bpf' => $request->bpf,
+                'biaya_bulan' => $request->biaya_bulan,
             ]);
+
+            $karyawan = Karyawan::where('id', $request->id_karyawan)->first();
+            Karyawan::updateOrCreate([
+                'id_pph21' => $pph21->id,
+                'nama' => $karyawan->nama,
+                'nik' => $karyawan->nik,
+                'npwp' => $karyawan->npwp,
+            ]);
+            $pph21 = Pph21::where('nik', $karyawan->nik)->update(['nik' => $request->nik]);
 
             return response()->json([
                 'message' => "Data telah tersimpan",

@@ -17,6 +17,11 @@ Route::middleware('auth')->group(function () {
 
     //beranda
     Route::get('/beranda', [BerandaController::class, 'get'])->name('api.beranda.get');
+    //pajak
+    Route::get('/pajak', [PajakController::class, 'get'])->name('api.pajak.get');
+    Route::post('/pajak', [PajakController::class, 'store'])->name('api.pajak.post');
+    Route::put('/pajak/{id_pajak}', [PajakController::class, 'update'])->name('api.pajak.put');
+    Route::delete('/pajak/{id_pajak}', [PajakController::class, 'destroy']);
 
     //pph
     Route::get('/pph', [PphController::class, 'get'])->name('api.pph.get');
@@ -30,23 +35,17 @@ Route::middleware('auth')->group(function () {
     Route::put('/pph21/{id}', [Pph21Controller::class, 'update'])->name('api.pph21.put');
     Route::delete('/pph21/{id}', [Pph21Controller::class, 'destroy']);
 
-    //pajak
-    Route::get('/pajak', [PajakController::class, 'get'])->name('api.pajak.get');
-    Route::post('/pajak', [PajakController::class, 'store'])->name('api.pajak.post');
-    Route::put('/pajak/{id_pajak}', [PajakController::class, 'update'])->name('api.pajak.put');
-    Route::delete('/pajak/{id_pajak}', [PajakController::class, 'destroy']);
+    //karyawan
+    Route::get('/karyawan', [KaryawanController::class, 'get'])->name('api.karyawan.get');
+    Route::post('/karyawan', [KaryawanController::class, 'store'])->name('api.karyawan.post');
+    Route::put('/karyawan/{id}', [KaryawanController::class, 'update'])->name('api.karyawan.put');
+    Route::delete('/karyawan/{id}', [KaryawanController::class, 'destroy']);
 
     //pphunifikasi
     Route::get('/pphunifikasi', [PphunifikasiController::class, 'get'])->name('api.pphunifikasi.get');
     Route::post('/pphunifikasi', [PphunifikasiController::class, 'store'])->name('api.pphunifikasi.post');
     Route::put('/pphunifikasi/{id_pphuni}', [PphunifikasiController::class, 'update'])->name('api.pphunifikasi.put');
     Route::delete('/pphunifikasi/{id_pphuni}', [PphunifikasiController::class, 'destroy']);
-
-    //karyawan
-    Route::get('/karyawan', [KaryawanController::class, 'get'])->name('api.karyawan.get');
-    Route::post('/karyawan', [KaryawanController::class, 'store'])->name('api.karyawan.post');
-    Route::put('/karyawan/{id}', [KaryawanController::class, 'update'])->name('api.karyawan.put');
-    Route::delete('/karyawan/{id}', [KaryawanController::class, 'destroy']);
 
     //dataadmin
     Route::get('/dataadmin', [DataadminController::class, 'get'])->name('api.dataadmin.get');
