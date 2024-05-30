@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('id_pajak');
             $table->integer('nik');
-            $table->integer('jumlah_bayar');
-            $table->integer('bpf');
             $table->integer('biaya_bulan');
+            $table->integer('jumlah_bayar');
+            $table->string('bpf');
             $table->timestamps();
         });
     }
