@@ -98,7 +98,7 @@ class Pph21Controller extends Controller
         $validated = Validator::make($request->all(), [
             'nik' => 'numeric',
             'jumlah_bayar' => 'numeric',
-            'bpf' => 'numeric',
+            'bpf' => 'string',
             'biaya_bulan' => 'numeric',
 
         ]);
