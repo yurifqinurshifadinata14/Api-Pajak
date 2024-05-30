@@ -4,10 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class Staff
+class Auth
 {
     /**
      * Handle an incoming request.
@@ -16,13 +15,9 @@ class Staff
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::guard('sanctum')->check() && Auth::guard('sanctum')->user()->role == 'staff') {
-            # code...
-            return $next($request);
+        if (!auth()->check()) {
+            return redirect()->route('login');
         }
-
-        return response()->json([
-            'message' => "unauthorized"
-        ]);
+        return $next($request);
     }
 }
