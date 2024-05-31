@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::middleware('auth')->group(function () {
+// Route::middleware('auth')->group(function () {
 
     //beranda
     Route::get('/beranda', [BerandaController::class, 'get'])->name('api.beranda.get');
@@ -56,7 +56,7 @@ Route::middleware('auth')->group(function () {
     //login&logout
     Route::get('/logout', [AuthController::class, 'logout'])->name('api.logout');
     Route::post('/login', [AuthController::class, 'login'])->name('api.login.post')->withoutMiddleware('auth');
-});
+// });
 
 //Route::get('/status', [StatusController::class, 'get'])->name('api.status.post');
 
