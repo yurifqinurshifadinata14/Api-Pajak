@@ -13,50 +13,51 @@ use Illuminate\Support\Facades\Route;
 
 
 
-// Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {
+    Route::middleware('role:admin,staff')->group(function () {
+        //beranda
+        Route::get('/beranda', [BerandaController::class, 'get'])->name('api.beranda.get');
+        //pajak
+        Route::get('/pajak', [PajakController::class, 'get'])->name('api.pajak.get');
+        Route::post('/pajak', [PajakController::class, 'store'])->name('api.pajak.post');
+        Route::put('/pajak/{id_pajak}', [PajakController::class, 'update'])->name('api.pajak.put');
+        Route::delete('/pajak/{id_pajak}', [PajakController::class, 'destroy']);
 
-    //beranda
-    Route::get('/beranda', [BerandaController::class, 'get'])->name('api.beranda.get');
-    //pajak
-    Route::get('/pajak', [PajakController::class, 'get'])->name('api.pajak.get');
-    Route::post('/pajak', [PajakController::class, 'store'])->name('api.pajak.post');
-    Route::put('/pajak/{id_pajak}', [PajakController::class, 'update'])->name('api.pajak.put');
-    Route::delete('/pajak/{id_pajak}', [PajakController::class, 'destroy']);
+        //pph
+        Route::get('/pph', [PphController::class, 'get'])->name('api.pph.get');
+        Route::post('/pph', [PphController::class, 'store'])->name('api.pph.post');
+        Route::put('/pph/{id_pph}', [PphController::class, 'update'])->name('api.pph.put');
+        Route::delete('/pph/{id_pph}', [PphController::class, 'destroy'])->name('api.pph.destroy');
 
-    //pph
-    Route::get('/pph', [PphController::class, 'get'])->name('api.pph.get');
-    Route::post('/pph', [PphController::class, 'store'])->name('api.pph.post');
-    Route::put('/pph/{id_pph}', [PphController::class, 'update'])->name('api.pph.put');
-    Route::delete('/pph/{id_pph}', [PphController::class, 'destroy'])->name('api.pph.destroy');
+        //pph21
+        Route::get('/pph21', [Pph21Controller::class, 'get'])->name('api.pph21.get');
+        Route::post('/pph21', [Pph21Controller::class, 'store'])->name('api.pph21.post');
+        Route::put('/pph21/{id}', [Pph21Controller::class, 'update'])->name('api.pph21.put');
+        Route::delete('/pph21/{id}', [Pph21Controller::class, 'destroy']);
 
-    //pph21
-    Route::get('/pph21', [Pph21Controller::class, 'get'])->name('api.pph21.get');
-    Route::post('/pph21', [Pph21Controller::class, 'store'])->name('api.pph21.post');
-    Route::put('/pph21/{id}', [Pph21Controller::class, 'update'])->name('api.pph21.put');
-    Route::delete('/pph21/{id}', [Pph21Controller::class, 'destroy']);
+        //karyawan
+        Route::get('/karyawan', [KaryawanController::class, 'get'])->name('api.karyawan.get');
+        Route::post('/karyawan', [KaryawanController::class, 'store'])->name('api.karyawan.post');
+        Route::put('/karyawan/{id}', [KaryawanController::class, 'update'])->name('api.karyawan.put');
+        Route::delete('/karyawan/{id}', [KaryawanController::class, 'destroy']);
 
-    //karyawan
-    Route::get('/karyawan', [KaryawanController::class, 'get'])->name('api.karyawan.get');
-    Route::post('/karyawan', [KaryawanController::class, 'store'])->name('api.karyawan.post');
-    Route::put('/karyawan/{id}', [KaryawanController::class, 'update'])->name('api.karyawan.put');
-    Route::delete('/karyawan/{id}', [KaryawanController::class, 'destroy']);
+        //pphunifikasi
+        Route::get('/pphunifikasi', [PphunifikasiController::class, 'get'])->name('api.pphunifikasi.get');
+        Route::post('/pphunifikasi', [PphunifikasiController::class, 'store'])->name('api.pphunifikasi.post');
+        Route::put('/pphunifikasi/{id_pphuni}', [PphunifikasiController::class, 'update'])->name('api.pphunifikasi.put');
+        Route::delete('/pphunifikasi/{id_pphuni}', [PphunifikasiController::class, 'destroy']);
 
-    //pphunifikasi
-    Route::get('/pphunifikasi', [PphunifikasiController::class, 'get'])->name('api.pphunifikasi.get');
-    Route::post('/pphunifikasi', [PphunifikasiController::class, 'store'])->name('api.pphunifikasi.post');
-    Route::put('/pphunifikasi/{id_pphuni}', [PphunifikasiController::class, 'update'])->name('api.pphunifikasi.put');
-    Route::delete('/pphunifikasi/{id_pphuni}', [PphunifikasiController::class, 'destroy']);
+        //dataadmin
+        Route::get('/dataadmin', [DataadminController::class, 'get'])->name('api.dataadmin.get');
+        Route::post('/dataadmin', [DataadminController::class, 'store'])->name('api.dataadmin.post');
+        Route::put('/dataadmin/{id}', [DataadminController::class, 'update'])->name('api.dataadmin.put');
+        Route::delete('/dataadmin/{id}', [DataadminController::class, 'destroy']);
 
-    //dataadmin
-    Route::get('/dataadmin', [DataadminController::class, 'get'])->name('api.dataadmin.get');
-    Route::post('/dataadmin', [DataadminController::class, 'store'])->name('api.dataadmin.post');
-    Route::put('/dataadmin/{id}', [DataadminController::class, 'update'])->name('api.dataadmin.put');
-    Route::delete('/dataadmin/{id}', [DataadminController::class, 'destroy']);
-
-    //login&logout
-    Route::get('/logout', [AuthController::class, 'logout'])->name('api.logout');
-    Route::post('/login', [AuthController::class, 'login'])->name('api.login.post')->withoutMiddleware('auth');
-// });
+        //login&logout
+        Route::get('/logout', [AuthController::class, 'logout'])->name('api.logout');
+        Route::post('/login', [AuthController::class, 'login'])->name('api.login.post')->withoutMiddleware('auth');
+    });
+});
 
 //Route::get('/status', [StatusController::class, 'get'])->name('api.status.post');
 
