@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->string('no_efin');
             $table->string('gmail');
             $table->string('password');
-            $table->integer('nik');
+            $table->bigInteger('nik');
             $table->string('alamat');
             $table->string('merk_dagang');
             $table->timestamps();
