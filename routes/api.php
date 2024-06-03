@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
+Route::post('/login', [AuthController::class, 'login'])->name('api.login.post')->withoutMiddleware('auth');
 
 Route::middleware('auth')->group(function () {
     Route::middleware('role:admin,staff')->group(function () {
@@ -55,7 +56,6 @@ Route::middleware('auth')->group(function () {
 
         //login&logout
         Route::get('/logout', [AuthController::class, 'logout'])->name('api.logout');
-        Route::post('/login', [AuthController::class, 'login'])->name('api.login.post')->withoutMiddleware('auth');
     });
 });
 
