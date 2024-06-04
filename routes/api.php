@@ -16,7 +16,7 @@ use App\Http\Controllers\PphunifikasiController;
 Route::post('/login', [AuthController::class, 'login'])->name('api.login.post');
 //Route::post('/login', [AuthController::class, 'authenticate'])->name('login');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('multi:sanctum')->group(function () {
     Route::middleware('role:admin,staff')->group(function () {
         // ->middleware('multi:sanctum');
         //beranda
