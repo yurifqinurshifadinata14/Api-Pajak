@@ -17,7 +17,9 @@ class PajakController extends Controller
      */
     public function get()
     {
-        $pajak =  Pajak::all();
+        $pajak = Pajak::join('jenis', 'jenis.id_pajak', '=', 'pajaks.id_pajak')
+            ->join('statuses', 'statuses.id_pajak', '=', 'pajaks.id_pajak')
+            ->get();
         return response()->json([
             'pajak' => $pajak
         ]);
