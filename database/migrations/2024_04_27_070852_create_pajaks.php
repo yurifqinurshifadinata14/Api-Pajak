@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('id_user')->nullable();
             $table->string('nama_wp');
             $table->bigInteger('npwp');
-            $table->string('no_hp');
+            $table->bigInteger('no_hp');
             $table->string('no_efin');
             $table->string('gmail');
             $table->string('password');

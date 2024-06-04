@@ -12,16 +12,6 @@ use App\Http\Controllers\Pph21Controller;
 use App\Http\Controllers\PphController;
 use App\Http\Controllers\PphunifikasiController;
 
-// use App\Http\Controllers\Api\AuthController;
-// use App\Http\Controllers\Api\BerandaController;
-// use App\Http\Controllers\Api\KaryawanController;
-// use App\Http\Controllers\Api\PphController;
-// use App\Http\Controllers\Api\Pph21Controller;
-// use App\Http\Controllers\Api\PajakController;
-// use App\Http\Controllers\Api\DataadminController;
-// use App\Http\Controllers\Api\PphunifikasiController;
-// use App\Http\Controllers\Api\StatusController;
-
 
 Route::post('/login', [AuthController::class, 'login'])->name('api.login.post')->withoutMiddleware('auth');
 //Route::post('/login', [AuthController::class, 'authenticate'])->name('login');
