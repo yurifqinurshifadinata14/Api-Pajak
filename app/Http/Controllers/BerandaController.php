@@ -8,6 +8,7 @@ use App\Models\Pajak;
 use App\Models\Pph;
 use App\Models\Pph21;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BerandaController extends Controller
 {
