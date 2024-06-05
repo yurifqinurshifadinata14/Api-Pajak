@@ -16,6 +16,9 @@ class BerandaController extends Controller
      */
     public function get()
     {
+        $name = Auth::guard('sanctum')->user()->name;
+        $role = Auth::guard('sanctum')->user()->role;
+
         $pembayar = Pajak::all();
         $totalpembayar = Pajak::count();
         $jumlahkaryawan = Karyawan::count();
@@ -26,12 +29,13 @@ class BerandaController extends Controller
 
         return response()->json([
             'totalpembayar' => $totalpembayar,
-            'jumlahkaryawan'=> $jumlahkaryawan,
-            'totalbayarpph'=> $totalbayarpph,
-            'totalbayarpph21'=> $totalbayarpph21
-            
+            'jumlahkaryawan' => $jumlahkaryawan,
+            'totalbayarpph' => $totalbayarpph,
+            'totalbayarpph21' => $totalbayarpph21,
+            'name' => $name,
+            'role' => $role
+
         ]);
-        
     }
 
     /**
