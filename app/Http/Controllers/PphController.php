@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pajak;
 use App\Models\Pph;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,8 +17,10 @@ class PphController extends Controller
     public function get()
     {
         $pph =  Pph::all();
+        $pajak =  Pajak::all();
         return response()->json([
-            'pph' => $pph
+            'pph' => $pph,
+            'pajak' => $pajak
         ]);
     }
 

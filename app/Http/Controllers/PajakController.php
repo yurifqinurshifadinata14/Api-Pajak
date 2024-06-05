@@ -142,15 +142,18 @@ class PajakController extends Controller
      */
     public function update(Request $request, $id_pajak)
     {
+        // return response()->json([
+        //     $id_pajak
+        // ]);
         // Validasi data yang diterima dari request
         $validated = Validator::make($request->all(), [
-            'nama_wp' => 'string|max:255',
+            'nama_wp' => 'max:255',
             'npwp' => 'digits_between:1,11',
             'no_hp' => 'string|max:255',
             'no_efin' => 'string|max:255',
             'gmail' => 'email',
             'password' => 'string',
-            'nik' => 'string|max:255',
+            'nik' => 'max:255',
             'alamat' => 'string|max:255',
             'merk_dagang' => 'string|max:255',
         ]);
@@ -165,6 +168,7 @@ class PajakController extends Controller
         // Temukan data Pajak berdasarkan id_pajak
         $pajak = Pajak::where('id_pajak', $id_pajak)->first();
         $pajak->nama_wp = $request->nama_wp;
+        $pajak->id_user = auth('sanctum')->user()->id;
         $pajak->npwp = $request->npwp;
         $pajak->no_hp = $request->no_hp;
         $pajak->no_efin = $request->no_efin;
