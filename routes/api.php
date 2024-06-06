@@ -52,6 +52,9 @@ Route::middleware('multi:sanctum')->group(function () {
         Route::put('/karyawan/{id}', [KaryawanController::class, 'update'])->name('api.karyawan.put');
         Route::delete('/karyawan/{id}', [KaryawanController::class, 'destroy']);
 
+        Route::middleware('role:admin')->delete('/karyawan/{id}}', [KaryawanController::class, 'destroy']);
+
+
         //pphunifikasi
         Route::get('/pphunifikasi', [PphunifikasiController::class, 'get'])->name('api.pphunifikasi.get')->middleware('multi:sanctum');
         Route::post('/pphunifikasi', [PphunifikasiController::class, 'store'])->name('api.pphunifikasi.post');
