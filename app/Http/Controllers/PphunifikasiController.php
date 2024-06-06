@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pajak;
 use App\Models\Pphunifikasi;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -20,8 +21,10 @@ class PphunifikasiController extends Controller
     public function get()
     {
         $pphunifikasi =  Pphunifikasi::all();
+        $pajak =  Pajak::all();
         return response()->json([
-            'pphunifikasi' => $pphunifikasi
+            'pphunifikasi' => $pphunifikasi,
+            'pajak' => $pajak
         ]);
     }
 

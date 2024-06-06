@@ -20,6 +20,8 @@ class Auth
             # code...
             return $next($request);
         }
-        return redirect()->route('login');
+        return response()->json([
+            'message' => "unauthorized"
+        ]);
     }
 }
