@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Pphunifikasi;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use App\Imports\PphunifikasiImport;
+
 
 
 class PphunifikasiController extends Controller
@@ -21,6 +24,14 @@ class PphunifikasiController extends Controller
             'pphunifikasi' => $pphunifikasi
         ]);
     }
+
+    public function import(Request $request)
+    {
+        Excel::import(new PphunifikasiImport, $request->file('file'));
+
+        return response()->json(['message' => 'Data imported successfully']);
+    }
+
 
     /**
      * Show the form for creating a new resource.

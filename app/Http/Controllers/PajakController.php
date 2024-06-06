@@ -8,6 +8,8 @@ use App\Models\Pajak;
 use App\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Imports\PajakImport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 
 class PajakController extends Controller
@@ -23,6 +25,13 @@ class PajakController extends Controller
         return response()->json([
             'pajak' => $pajak
         ]);
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new PajakImport, $request->file('file'));
+
+        return response()->json(['message' => 'Data imported successfully']);
     }
 
     /**

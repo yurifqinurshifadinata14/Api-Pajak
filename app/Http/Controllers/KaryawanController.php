@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Karyawan;
+use App\Imports\KaryawanImport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 
 class KaryawanController extends Controller
@@ -18,6 +20,13 @@ class KaryawanController extends Controller
         return response()->json([
             'karyawan' => $karyawan
         ]);
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new KaryawanImport, $request->file('file'));
+
+        return response()->json(['message' => 'Data imported successfully']);
     }
 
     /**

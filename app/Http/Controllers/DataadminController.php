@@ -7,6 +7,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Imports\DataadminImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class DataadminController extends Controller
 {
@@ -19,6 +22,13 @@ class DataadminController extends Controller
         return response()->json([
             'dataadmin' => $dataadmin
         ]);
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new DataadminImport, $request->file('file'));
+
+        return response()->json(['message' => 'Data imported successfully']);
     }
     /**
      * Show the form for creating a new resource.
@@ -77,7 +87,7 @@ class DataadminController extends Controller
 
     /**
      * Update the specified resource in storage.
-     */     
+     */
     public function update(Request $request, $id)
     {
         $validated = Validator::make($request->all(), [
@@ -87,33 +97,33 @@ class DataadminController extends Controller
             'password_confirmation' => 'nullable|string|min:5|max:255|same:password',
             'role' => 'string',
         ]);
-    
+
         if ($validated->fails()) {
             return response()->json([
                 'message' => $validated->messages(),
             ], 400); // Set status code 400 for bad request
         }
-    
+
         $dataadmin = User::findOrFail($id);
-    
+
         $data = [
             'name' => $request->has('name') ? $request->name : $dataadmin->name,
             'email' => $request->has('email') ? $request->email : $dataadmin->email,
             'role' => $request->has('role') ? $request->role : $dataadmin->role,
         ];
-    
+
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
         }
-    
+
         $dataadmin->update($data);
-    
+
         return response()->json([
             'message' => "Data telah tersimpan",
         ]);
     }
-    
-    
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -122,21 +132,21 @@ class DataadminController extends Controller
     {
         // Temukan data Pajak berdasarkan id_pajak
         $dataadmin = User::where('id', $id)->first();
-    
+
         // Periksa apakah data Pajak ditemukan
         if (!$dataadmin) {
             return response()->json([
                 'message' => "Data Admin dengan ID $id tidak ditemukan",
             ], 404);
         }
-    
+
         // Hapus data Pajak
         $dataadmin->delete();
-    
+
         // Kembalikan respons sukses
         return response()->json([
             'message' => "Data Admin dengan ID $id berhasil dihapus",
         ]);
     }
-    
+
 }

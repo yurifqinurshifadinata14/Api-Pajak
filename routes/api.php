@@ -12,6 +12,13 @@ use App\Http\Controllers\Pph21Controller;
 use App\Http\Controllers\PphController;
 use App\Http\Controllers\PphunifikasiController;
 
+//Import
+Route::post('/karyawan/import', [KaryawanController::class, 'import'])->name('api.karyawan.import');
+Route::post('/pph/import', [PphController::class, 'import'])->name('api.pph.import');
+Route::post('/pajak/import', [PajakController::class, 'import'])->name('api.pajak.import');
+Route::post('/pph21/import', [Pph21Controller::class, 'import'])->name('api.pph21.import');
+Route::post('/pphunifikasi/import', [PphunifikasiController::class, 'import'])->name('api.pphunifikasi.import');
+Route::post('/dataadmin/import', [DataadminController::class, 'import'])->name('api.dataadmin.import');
 
 Route::post('/login', [AuthController::class, 'login'])->name('api.login.post')->withoutMiddleware('auth');
 //Route::post('/login', [AuthController::class, 'authenticate'])->name('login');
@@ -62,6 +69,8 @@ Route::middleware('auth')->group(function () {
     });
 });
 // });
+
+
 
 //Route::get('/status', [StatusController::class, 'get'])->name('api.status.post');
 

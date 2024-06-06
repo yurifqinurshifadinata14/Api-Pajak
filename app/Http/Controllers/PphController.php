@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pph;
+use App\Imports\PphImport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -19,6 +21,13 @@ class PphController extends Controller
         return response()->json([
             'pph' => $pph
         ]);
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new PphImport, $request->file('file'));
+
+        return response()->json(['message' => 'Data imported successfully']);
     }
 
     /**

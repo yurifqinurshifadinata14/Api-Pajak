@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Karyawan;
 use App\Models\Pph21;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\Pph21Import;
 use Illuminate\Support\Facades\Validator;
+
 
 class Pph21Controller extends Controller
 {
@@ -22,6 +25,13 @@ class Pph21Controller extends Controller
         return response()->json([
             'pph21' => $pph21
         ]);
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new Pph21Import, $request->file('file'));
+
+        return response()->json(['message' => 'Data imported successfully']);
     }
 
     /**
