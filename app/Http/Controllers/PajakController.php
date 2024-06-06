@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Imports\PajakImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class PajakController extends Controller
 {
