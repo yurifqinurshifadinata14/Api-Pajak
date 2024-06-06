@@ -8,6 +8,8 @@ use App\Imports\KaryawanImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+
 
 class KaryawanController extends Controller
 {
@@ -16,9 +18,11 @@ class KaryawanController extends Controller
      */
     public function get()
     {
+        $role = Auth::guard('sanctum')->user()->role;
         $karyawan =  Karyawan::all();
         return response()->json([
-            'karyawan' => $karyawan
+            'karyawan' => $karyawan,
+            'role' => $role
         ]);
     }
 
