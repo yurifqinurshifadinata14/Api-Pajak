@@ -49,7 +49,7 @@ class KaryawanController extends Controller
         //
         $validated = Validator::make($request->all(), [
             'nama' => 'required|max:255',
-            'nik' => 'required|numeric',
+            'nik' => 'required|max:255',
             'npwp' => 'required|numeric',
         ]);
 
@@ -94,7 +94,7 @@ class KaryawanController extends Controller
         //
         $validated = Validator::make($request->all(), [
             'nama' => 'string|max:255',
-            'nik' => 'numeric',
+            'nik' => 'max:255',
             'npwp' => 'numeric',
         ]);
 

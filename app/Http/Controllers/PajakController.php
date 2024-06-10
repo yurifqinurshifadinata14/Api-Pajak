@@ -56,7 +56,7 @@ class PajakController extends Controller
             'no_efin' => 'required',
             'gmail' => 'required',
             'password' => 'required',
-            'nik' => 'required',
+            'nik' => 'required|max:255',
             'alamat' => 'required',
             'merk_dagang' => 'required',
         ]);
